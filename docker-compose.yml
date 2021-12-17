@@ -5,3 +5,16 @@ services:
     image: composer:2.2
     volumes:
       - .:/app
+
+  php:
+    image: php:8.0-cli
+    volumes:
+      - .:/app
+    working_dir: /app
+
+  phpunit:
+    image: php:8.0-cli
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: vendor/bin/phpunit
