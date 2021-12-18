@@ -51,4 +51,18 @@ final class ExchangeInteractorTest extends TestCase
         $this->assertEquals( $expected, $this->exchangeInteractor->getAll() );
     }
 
+    /**
+     * @covers ExchangeInteractor::add
+     * @return void
+     */
+    public function testAddNewExchange(): void
+    {
+        $exchangeName = 'Exchange Name';
+        $exchangeUrl = 'https://exchange.test.com';
+        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $exchangeName, $exchangeUrl);
+
+        $this->exchangeGateway->expects($this->once())->method('add')->with(new Exchange($exchangeName, $exchangeUrl));
+
+        $this->exchangeInteractor->add($jsonRequest);
+    }
 }

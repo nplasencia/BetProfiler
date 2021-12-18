@@ -15,6 +15,13 @@ class ExchangeInteractor implements ExchangeBoundaryInterface
         $this->exchangeGateway = $exchangeGateway;
     }
 
+    public function add(string $jsonRequest): void
+    {
+        $exchangeRequest = json_decode($jsonRequest);
+        $exchange = new Exchange($exchangeRequest->name, $exchangeRequest->url);
+        $this->exchangeGateway->add($exchange);
+    }
+
     /**
      * @return Exchange[]
      */

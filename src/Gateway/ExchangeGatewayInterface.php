@@ -6,6 +6,8 @@ use Auret\BetProfiler\Entity\Exchange;
 
 interface ExchangeGatewayInterface
 {
+    public function add(Exchange $exchange): void;
+
     /**
      * @return Exchange[]
      */
