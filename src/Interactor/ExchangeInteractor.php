@@ -4,26 +4,34 @@ namespace Auret\BetProfiler\Interactor;
 
 use Auret\BetProfiler\Boundary\ExchangeBoundaryInterface;
 use Auret\BetProfiler\Entity\Exchange;
+use Auret\BetProfiler\Factory\RequestFactoryInterface;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
+use Auret\BetProfiler\Model\ExchangeRequest;
 
-class ExchangeInteractor implements ExchangeBoundaryInterface
+final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
     private ExchangeGatewayInterface $exchangeGateway;
+    private RequestFactoryInterface $requestFactory;
 
-    public function __construct(ExchangeGatewayInterface $exchangeGateway)
+    public function __construct(ExchangeGatewayInterface $exchangeGateway, RequestFactoryInterface $requestFactory)
     {
         $this->exchangeGateway = $exchangeGateway;
+        $this->requestFactory = $requestFactory;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function add(string $jsonRequest): void
     {
-        $exchangeRequest = json_decode($jsonRequest);
-        $exchange = new Exchange($exchangeRequest->name, $exchangeRequest->url);
+        /** @var ExchangeRequest $exchangeRequest */
+        $exchangeRequest = $this->requestFactory->create($jsonRequest);
+        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->add($exchange);
     }
 
     /**
-     * @return Exchange[]
+     * @inheritDoc
      */
     public function getAll(): array
     {

@@ -3,25 +3,29 @@
 namespace Auret\BetProfiler\Tests\Interactor;
 
 use Auret\BetProfiler\Entity\Exchange;
+use Auret\BetProfiler\Factory\RequestFactoryInterface;
 use Auret\BetProfiler\Interactor\ExchangeInteractor;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
+use Auret\BetProfiler\Model\ExchangeRequest;
 use PHPUnit\Framework\TestCase;
 
 final class ExchangeInteractorTest extends TestCase
 {
     private ExchangeInteractor $exchangeInteractor;
+
     private ExchangeGatewayInterface $exchangeGateway;
+    private RequestFactoryInterface $requestFactory;
 
     protected function setUp(): void
     {
         $this->exchangeGateway = $this->createMock(ExchangeGatewayInterface::class);
+        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
 
-        $this->exchangeInteractor = new ExchangeInteractor($this->exchangeGateway);
+        $this->exchangeInteractor = new ExchangeInteractor($this->exchangeGateway, $this->requestFactory);
     }
 
     /**
      * @covers ExchangeInteractor::getAll
-     * @return void
      */
     public function testGetOnlyOneExchange(): void
     {
@@ -36,7 +40,6 @@ final class ExchangeInteractorTest extends TestCase
 
     /**
      * @covers ExchangeInteractor::getAll
-     * @return void
      */
     public function testGetManyExchanges(): void
     {
@@ -53,7 +56,6 @@ final class ExchangeInteractorTest extends TestCase
 
     /**
      * @covers ExchangeInteractor::add
-     * @return void
      */
     public function testAddNewExchange(): void
     {
@@ -61,6 +63,8 @@ final class ExchangeInteractorTest extends TestCase
         $exchangeUrl = 'https://exchange.test.com';
         $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $exchangeName, $exchangeUrl);
 
+        $exchangeRequest = new ExchangeRequest($exchangeName, $exchangeUrl);
+        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
         $this->exchangeGateway->expects($this->once())->method('add')->with(new Exchange($exchangeName, $exchangeUrl));
 
         $this->exchangeInteractor->add($jsonRequest);

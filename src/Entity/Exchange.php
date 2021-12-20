@@ -2,7 +2,7 @@
 
 namespace Auret\BetProfiler\Entity;
 
-class Exchange
+final class Exchange
 {
     private string $name;
     private string $url;
