@@ -8,6 +8,8 @@ interface ExchangeGatewayInterface
 {
     public function add(Exchange $exchange): void;
 
+    public function delete(int $id): void;
+
     /**
      * @return Exchange[]
      */

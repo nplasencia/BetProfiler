@@ -69,4 +69,15 @@ final class ExchangeInteractorTest extends TestCase
 
         $this->exchangeInteractor->add($jsonRequest);
     }
+
+    /**
+     * @covers ExchangeInteractor::deleteById
+     */
+    public function testDeleteById(): void
+    {
+        $exchangeId = 1;
+
+        $this->exchangeGateway->expects($this->once())->method('delete')->with($exchangeId);
+        $this->exchangeInteractor->deleteById($exchangeId);
+    }
 }

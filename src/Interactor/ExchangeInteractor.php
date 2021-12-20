@@ -7,6 +7,7 @@ use Auret\BetProfiler\Entity\Exchange;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
 use Auret\BetProfiler\Model\ExchangeRequest;
 use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
+use JsonException;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
@@ -28,6 +29,14 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
         $exchangeRequest = $this->requestFactory->create($jsonRequest);
         $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->add($exchange);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteById(int $id): void
+    {
+        $this->exchangeGateway->delete($id);
     }
 
     /**
