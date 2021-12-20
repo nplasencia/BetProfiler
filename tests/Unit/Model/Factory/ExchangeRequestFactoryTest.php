@@ -1,12 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace Auret\BetProfiler\Tests\Factory;
+namespace Auret\BetProfiler\Tests\Model\Factory;
 
-use Auret\BetProfiler\Factory\ExchangeRequestFactory;
 use Auret\BetProfiler\Model\ExchangeRequest;
+use Auret\BetProfiler\Model\Factory\ExchangeRequestFactory;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class ExchangeRequestFactoryTest extends TestCase
 {

@@ -3,10 +3,10 @@
 namespace Auret\BetProfiler\Tests\Interactor;
 
 use Auret\BetProfiler\Entity\Exchange;
-use Auret\BetProfiler\Factory\RequestFactoryInterface;
-use Auret\BetProfiler\Interactor\ExchangeInteractor;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
+use Auret\BetProfiler\Interactor\ExchangeInteractor;
 use Auret\BetProfiler\Model\ExchangeRequest;
+use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ExchangeInteractorTest extends TestCase

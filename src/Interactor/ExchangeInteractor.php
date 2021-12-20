@@ -4,9 +4,9 @@ namespace Auret\BetProfiler\Interactor;
 
 use Auret\BetProfiler\Boundary\ExchangeBoundaryInterface;
 use Auret\BetProfiler\Entity\Exchange;
-use Auret\BetProfiler\Factory\RequestFactoryInterface;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
 use Auret\BetProfiler\Model\ExchangeRequest;
+use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {

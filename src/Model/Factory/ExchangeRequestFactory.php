@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Auret\BetProfiler\Factory;
+namespace Auret\BetProfiler\Model\Factory;
 
 use Auret\BetProfiler\Model\ExchangeRequest;
 use Auret\BetProfiler\Model\RequestInterface;
