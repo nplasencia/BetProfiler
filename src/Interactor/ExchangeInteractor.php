@@ -42,6 +42,17 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     /**
      * @inheritDoc
      */
+    public function updateById(int $id, string $jsonRequest): void
+    {
+        /** @var ExchangeRequest $exchangeRequest */
+        $exchangeRequest = $this->requestFactory->create($jsonRequest);
+        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $this->exchangeGateway->update($id, $exchange);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getAll(): array
     {
         return $this->exchangeGateway->getAll();

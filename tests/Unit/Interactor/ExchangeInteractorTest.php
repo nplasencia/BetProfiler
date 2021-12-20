@@ -80,4 +80,22 @@ final class ExchangeInteractorTest extends TestCase
         $this->exchangeGateway->expects($this->once())->method('delete')->with($exchangeId);
         $this->exchangeInteractor->deleteById($exchangeId);
     }
+
+    /**
+     * @covers ExchangeInteractor::updateById
+     */
+    public function testUpdateById(): void
+    {
+        $exchangeId = 99;
+        $newExchangeName = 'New Exchange Name';
+        $newExchangeUrl = 'https://new-exchange.test.com';
+        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $newExchangeName, $newExchangeUrl);
+
+        $exchangeRequest = new ExchangeRequest($newExchangeName, $newExchangeUrl);
+        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
+        $this->exchangeGateway->expects($this->once())->method('update')
+           ->with($exchangeId, new Exchange($newExchangeName, $newExchangeUrl));
+
+        $this->exchangeInteractor->updateById($exchangeId, $jsonRequest);
+    }
 }

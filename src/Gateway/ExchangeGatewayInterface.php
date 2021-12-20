@@ -10,6 +10,8 @@ interface ExchangeGatewayInterface
 
     public function delete(int $id): void;
 
+    public function update(int $id, Exchange $exchange): void;
+
     /**
      * @return Exchange[]
      */

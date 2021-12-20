@@ -21,6 +21,14 @@ interface ExchangeBoundaryInterface
     public function deleteById(int $id): void;
 
     /**
+     * @param int $id
+     * @param string $jsonRequest
+     * @return void
+     * @throws JsonException
+     */
+    public function updateById(int $id, string $jsonRequest): void;
+
+    /**
      * @return Exchange[]
      */
     public function getAll(): array;
