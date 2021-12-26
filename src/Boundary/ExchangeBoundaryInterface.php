@@ -32,4 +32,6 @@ interface ExchangeBoundaryInterface
      * @return Exchange[]
      */
     public function getAll(): array;
+
+    public function getById(int $id): Exchange;
 }

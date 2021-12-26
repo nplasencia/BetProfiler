@@ -7,7 +7,6 @@ use Auret\BetProfiler\Entity\Exchange;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
 use Auret\BetProfiler\Model\ExchangeRequest;
 use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
-use JsonException;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
@@ -56,5 +55,10 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     public function getAll(): array
     {
         return $this->exchangeGateway->getAll();
+    }
+
+    public function getById(int $id): Exchange
+    {
+        return $this->exchangeGateway->get($id);
     }
 }

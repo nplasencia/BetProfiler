@@ -16,4 +16,6 @@ interface ExchangeGatewayInterface
      * @return Exchange[]
      */
     public function getAll(): array;
+
+    public function get(int $id): Exchange;
 }

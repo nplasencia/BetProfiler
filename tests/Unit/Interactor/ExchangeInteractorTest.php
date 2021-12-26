@@ -98,4 +98,20 @@ final class ExchangeInteractorTest extends TestCase
 
         $this->exchangeInteractor->updateById($exchangeId, $jsonRequest);
     }
+
+    /**
+     * @covers ExchangeInteractor::getById
+     */
+    public function testGetById(): void
+    {
+        $exchangeId = 99;
+        $exchangeName = 'New Exchange Name';
+        $exchangeUrl = 'https://new-exchange.test.com';
+
+        $this->exchangeGateway->expects($this->once())->method('get')
+           ->willReturn(new Exchange($exchangeName, $exchangeUrl));
+
+        $expected = new Exchange($exchangeName, $exchangeUrl);
+        $this->assertEquals($expected, $this->exchangeInteractor->getById($exchangeId));
+    }
 }
