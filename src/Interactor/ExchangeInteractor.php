@@ -30,9 +30,6 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
         $this->exchangeGateway->add($exchange);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function deleteById(int $id): void
     {
         $this->exchangeGateway->delete($id);

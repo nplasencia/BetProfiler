@@ -14,10 +14,6 @@ interface BookmakerBoundaryInterface
      */
     public function add(string $jsonRequest): void;
 
-    /**
-     * @param int
-     * @return void
-     */
     public function deleteById(int $id): void;
 
     /**

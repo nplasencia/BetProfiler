@@ -35,7 +35,7 @@ final class ExchangeInteractorTest extends TestCase
            ->willReturn([$exchange]);
 
         $expected = [$exchange];
-        $this->assertEquals( $expected, $this->exchangeInteractor->getAll() );
+        $this->assertEquals($expected, $this->exchangeInteractor->getAll());
     }
 
     /**
@@ -51,7 +51,7 @@ final class ExchangeInteractorTest extends TestCase
            ->willReturn([$exchange1, $exchange2, $exchange3]);
 
         $expected = [$exchange1, $exchange2, $exchange3];
-        $this->assertEquals( $expected, $this->exchangeInteractor->getAll() );
+        $this->assertEquals($expected, $this->exchangeInteractor->getAll());
     }
 
     /**
