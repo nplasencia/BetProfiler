@@ -2,7 +2,7 @@
 
 namespace Auret\BetProfiler\Entity;
 
-final class Sport
+final class EventType
 {
     private string $name;
     private string $code;
