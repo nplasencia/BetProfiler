@@ -6,7 +6,10 @@ use DateTime;
 
 final class Event
 {
-    private string $eventName;
-    private DateTime $eventDateTime;
-    private EventType $eventType;
+    public function __construct(
+        private ?int $id,
+        private ?string $eventName,
+        private ?DateTime $eventDateTime,
+        private ?EventType $eventType
+    ) {}
 }
