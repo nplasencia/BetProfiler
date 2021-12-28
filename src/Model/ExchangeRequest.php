@@ -5,8 +5,8 @@ namespace Auret\BetProfiler\Model;
 final class ExchangeRequest implements RequestInterface
 {
     public function __construct(
-       private string $name,
-       private string $url
+        private string $name,
+        private string $url
     ) {}
 
     public function getName(): string

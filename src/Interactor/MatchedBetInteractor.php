@@ -17,8 +17,8 @@ use Auret\BetProfiler\Model\MatchedBetRequest;
 final class MatchedBetInteractor implements MatchedBetBoundaryInterface
 {
     public function __construct(
-       private MatchedBetGatewayInterface $matchedBetGateway,
-       private RequestFactoryInterface $requestFactory
+        private MatchedBetGatewayInterface $matchedBetGateway,
+        private RequestFactoryInterface $requestFactory
     ) {}
 
     /**

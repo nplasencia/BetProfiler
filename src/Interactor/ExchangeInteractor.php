@@ -10,14 +10,10 @@ use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
-    private ExchangeGatewayInterface $exchangeGateway;
-    private RequestFactoryInterface $requestFactory;
-
-    public function __construct(ExchangeGatewayInterface $exchangeGateway, RequestFactoryInterface $requestFactory)
-    {
-        $this->exchangeGateway = $exchangeGateway;
-        $this->requestFactory = $requestFactory;
-    }
+    public function __construct(
+        private ExchangeGatewayInterface $exchangeGateway,
+        private RequestFactoryInterface $requestFactory
+    ) {}
 
     /**
      * @inheritDoc
