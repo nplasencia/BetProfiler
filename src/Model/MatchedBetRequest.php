@@ -3,29 +3,15 @@
 namespace Auret\BetProfiler\Model;
 
 final class MatchedBetRequest implements RequestInterface
-{
-    private int $bookmakerId;
-    private int $exchangeId;
-    private int $eventId;
-    private int $marketTypeId;
-    private string $betType;
-    private string $notes;
-
-    public function __construct(
-       int $bookmakerId,
-       int $exchangeId,
-       int $eventId,
-       int $marketTypeId,
-       string $betType,
-       string $notes
-    ) {
-        $this->bookmakerId = $bookmakerId;
-        $this->exchangeId = $exchangeId;
-        $this->eventId = $eventId;
-        $this->marketTypeId = $marketTypeId;
-        $this->betType = $betType;
-        $this->notes = $notes;
-    }
+{public function __construct(
+       private int $bookmakerId,
+       private int $exchangeId,
+       private int $eventId,
+       private int $marketTypeId,
+       private string $betType,
+       private string $betMode,
+       private string $notes,
+    ) {}
 
     public function getBookmakerId(): int
     {
@@ -50,6 +36,11 @@ final class MatchedBetRequest implements RequestInterface
     public function getBetType(): string
     {
         return $this->betType;
+    }
+
+    public function getBetMode(): string
+    {
+        return $this->betMode;
     }
 
     public function getNotes(): string
