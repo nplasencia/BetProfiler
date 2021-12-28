@@ -28,7 +28,7 @@ final class BookmakerInteractor implements BookmakerBoundaryInterface
     {
         /** @var BookmakerRequest $bookmakerRequest */
         $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker($bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker(null, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
         $this->bookmakerGateway->add($bookmaker);
     }
 
@@ -44,7 +44,7 @@ final class BookmakerInteractor implements BookmakerBoundaryInterface
     {
         /** @var BookmakerRequest $bookmakerRequest */
         $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker($bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker(null, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
         $this->bookmakerGateway->update($id, $bookmaker);
     }
 

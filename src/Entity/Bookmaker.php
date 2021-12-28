@@ -4,12 +4,9 @@ namespace Auret\BetProfiler\Entity;
 
 final class Bookmaker
 {
-    private string $name;
-    private string $url;
-
-    public function __construct(string $name, string $url)
-    {
-        $this->name = $name;
-        $this->url = $url;
-    }
+    public function __construct(
+       private ?int $id,
+       private ?string $name,
+       private ?string $url
+    ) {}
 }
