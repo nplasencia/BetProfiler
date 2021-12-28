@@ -26,7 +26,7 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     {
         /** @var ExchangeRequest $exchangeRequest */
         $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange(null, $exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->add($exchange);
     }
 
@@ -42,7 +42,7 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     {
         /** @var ExchangeRequest $exchangeRequest */
         $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange($id, $exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->update($id, $exchange);
     }
 
