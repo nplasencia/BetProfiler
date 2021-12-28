@@ -13,7 +13,7 @@ final class MatchedBetRequestFactory extends AbstractRequestFactory
      */
     protected function getNeededProperties(): array
     {
-        return ['bookmakerId', 'exchangeId', 'eventId', 'marketTypeId', 'betType', 'notes'];
+        return ['bookmakerId', 'exchangeId', 'eventId', 'marketTypeId', 'betType', 'betMode', 'notes'];
     }
 
     protected function returnRequest(stdClass $decodedRequest): RequestInterface
@@ -24,6 +24,7 @@ final class MatchedBetRequestFactory extends AbstractRequestFactory
            $decodedRequest->eventId,
            $decodedRequest->marketTypeId,
            $decodedRequest->betType,
+           $decodedRequest->betMode,
            $decodedRequest->notes
         );
     }

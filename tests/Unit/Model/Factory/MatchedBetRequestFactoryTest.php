@@ -26,11 +26,12 @@ final class MatchedBetRequestFactoryTest extends TestCase
         $eventId = 3;
         $marketTypeId = 4;
         $betType = 'Normal';
+        $betMode = 'Underlay';
         $notes = 'Lorem ipsum';
 
-        $encodedJson = $this->getEncodedJson($bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $notes);
+        $encodedJson = $this->getEncodedJson($bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $betMode, $notes);
         $result = $this->matchedBetRequestFactory->create($encodedJson);
-        $expected = new MatchedBetRequest($bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $notes);
+        $expected = new MatchedBetRequest($bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $betMode, $notes);
         $this->assertEquals($expected, $result);
     }
 
@@ -51,10 +52,11 @@ final class MatchedBetRequestFactoryTest extends TestCase
        int $eventId,
        int $marketTypeId,
        string $betType,
+       string $betMode,
        string $notes
     ): string
     {
-        $jsonTemplate = '{"bookmakerId":%d, "exchangeId":%d, "eventId":%d, "marketTypeId":%d, "betType":"%s", "notes":"%s"}';
-        return sprintf($jsonTemplate, $bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $notes);
+        $jsonTemplate = '{"bookmakerId":%d, "exchangeId":%d, "eventId":%d, "marketTypeId":%d, "betType":"%s", "betMode":"%s", "notes":"%s"}';
+        return sprintf($jsonTemplate, $bookmakerId, $exchangeId, $eventId, $marketTypeId, $betType, $betMode, $notes);
     }
 }
