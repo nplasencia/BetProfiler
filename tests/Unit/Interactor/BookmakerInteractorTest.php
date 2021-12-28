@@ -94,7 +94,7 @@ final class BookmakerInteractorTest extends TestCase
         $bookmakerRequest = new BookmakerRequest($newBookmakerName, $newBookmakerUrl);
         $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($bookmakerRequest);
         $this->bookmakerGateway->expects($this->once())->method('update')
-           ->with($bookmakerId, new Bookmaker(null, $newBookmakerName, $newBookmakerUrl));
+           ->with($bookmakerId, new Bookmaker($bookmakerId, $newBookmakerName, $newBookmakerUrl));
 
         $this->bookmakerInteractor->updateById($bookmakerId, $jsonRequest);
     }
