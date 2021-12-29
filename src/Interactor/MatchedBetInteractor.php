@@ -32,6 +32,11 @@ final class MatchedBetInteractor implements MatchedBetBoundaryInterface
         $this->matchedBetGateway->add($matchedBet);
     }
 
+    public function deleteById(int $id): void
+    {
+        $this->matchedBetGateway->delete($id);
+    }
+
     private function getMatchedBetFromRequest(MatchedBetRequest $request): MatchedBet
     {
         return new MatchedBet(
