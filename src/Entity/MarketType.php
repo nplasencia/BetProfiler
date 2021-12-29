@@ -2,11 +2,11 @@
 
 namespace Auret\BetProfiler\Entity;
 
-final class Exchange
+final class MarketType
 {
     public function __construct(
         private ?int $id,
         private ?string $name,
-        private ?string $url
+        private ?string $code
     ) {}
 }

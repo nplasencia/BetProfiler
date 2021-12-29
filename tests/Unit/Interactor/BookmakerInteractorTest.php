@@ -29,7 +29,7 @@ final class BookmakerInteractorTest extends TestCase
      */
     public function testGetOnlyOneBookmaker(): void
     {
-        $Bookmaker = new Bookmaker('Bookmaker Name', 'https://Bookmaker.test.com');
+        $Bookmaker = new Bookmaker(1, 'Bookmaker Name', 'https://Bookmaker.test.com');
 
         $this->bookmakerGateway->expects($this->once())->method('getAll')
            ->willReturn([$Bookmaker]);
@@ -43,9 +43,9 @@ final class BookmakerInteractorTest extends TestCase
      */
     public function testGetManyBookmakers(): void
     {
-        $bookmaker1 = new Bookmaker('Bookmaker Name 1', 'https://Bookmaker1.test.com');
-        $bookmaker2 = new Bookmaker('Bookmaker Name 2', 'https://Bookmaker2.test.com');
-        $bookmaker3 = new Bookmaker('Bookmaker Name 3', 'https://Bookmaker3.test.com');
+        $bookmaker1 = new Bookmaker(1, 'Bookmaker Name 1', 'https://Bookmaker1.test.com');
+        $bookmaker2 = new Bookmaker(2, 'Bookmaker Name 2', 'https://Bookmaker2.test.com');
+        $bookmaker3 = new Bookmaker(3, 'Bookmaker Name 3', 'https://Bookmaker3.test.com');
 
         $this->bookmakerGateway->expects($this->once())->method('getAll')
            ->willReturn([$bookmaker1, $bookmaker2, $bookmaker3]);
@@ -65,7 +65,7 @@ final class BookmakerInteractorTest extends TestCase
 
         $BookmakerRequest = new BookmakerRequest($bookmakerName, $bookmakerUrl);
         $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($BookmakerRequest);
-        $this->bookmakerGateway->expects($this->once())->method('add')->with(new Bookmaker($bookmakerName, $bookmakerUrl));
+        $this->bookmakerGateway->expects($this->once())->method('add')->with(new Bookmaker(null, $bookmakerName, $bookmakerUrl));
 
         $this->bookmakerInteractor->add($jsonRequest);
     }
@@ -94,7 +94,7 @@ final class BookmakerInteractorTest extends TestCase
         $bookmakerRequest = new BookmakerRequest($newBookmakerName, $newBookmakerUrl);
         $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($bookmakerRequest);
         $this->bookmakerGateway->expects($this->once())->method('update')
-           ->with($bookmakerId, new Bookmaker($newBookmakerName, $newBookmakerUrl));
+           ->with($bookmakerId, new Bookmaker($bookmakerId, $newBookmakerName, $newBookmakerUrl));
 
         $this->bookmakerInteractor->updateById($bookmakerId, $jsonRequest);
     }
@@ -109,9 +109,9 @@ final class BookmakerInteractorTest extends TestCase
         $bookmakerUrl = 'https://new-Bookmaker.test.com';
 
         $this->bookmakerGateway->expects($this->once())->method('get')
-           ->willReturn(new Bookmaker($bookmakerName, $bookmakerUrl));
+           ->willReturn(new Bookmaker($bookmakerId, $bookmakerName, $bookmakerUrl));
 
-        $expected = new Bookmaker($bookmakerName, $bookmakerUrl);
+        $expected = new Bookmaker($bookmakerId, $bookmakerName, $bookmakerUrl);
         $this->assertEquals($expected, $this->bookmakerInteractor->getById($bookmakerId));
     }
 }

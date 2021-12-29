@@ -10,14 +10,10 @@ use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
-    private ExchangeGatewayInterface $exchangeGateway;
-    private RequestFactoryInterface $requestFactory;
-
-    public function __construct(ExchangeGatewayInterface $exchangeGateway, RequestFactoryInterface $requestFactory)
-    {
-        $this->exchangeGateway = $exchangeGateway;
-        $this->requestFactory = $requestFactory;
-    }
+    public function __construct(
+        private ExchangeGatewayInterface $exchangeGateway,
+        private RequestFactoryInterface $requestFactory
+    ) {}
 
     /**
      * @inheritDoc
@@ -26,7 +22,7 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     {
         /** @var ExchangeRequest $exchangeRequest */
         $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange(null, $exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->add($exchange);
     }
 
@@ -42,7 +38,7 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
     {
         /** @var ExchangeRequest $exchangeRequest */
         $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange($exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange($id, $exchangeRequest->getName(), $exchangeRequest->getUrl());
         $this->exchangeGateway->update($id, $exchange);
     }
 

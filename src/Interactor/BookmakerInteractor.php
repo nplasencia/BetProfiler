@@ -12,14 +12,10 @@ use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class BookmakerInteractor implements BookmakerBoundaryInterface
 {
-    private BookmakerGatewayInterface $bookmakerGateway;
-    private RequestFactoryInterface $requestFactory;
-
-    public function __construct(BookmakerGatewayInterface $bookmakerGateway, RequestFactoryInterface $requestFactory)
-    {
-        $this->bookmakerGateway = $bookmakerGateway;
-        $this->requestFactory = $requestFactory;
-    }
+    public function __construct(
+        private BookmakerGatewayInterface $bookmakerGateway,
+        private RequestFactoryInterface $requestFactory
+    ) {}
 
     /**
      * @inheritDoc
@@ -28,7 +24,7 @@ final class BookmakerInteractor implements BookmakerBoundaryInterface
     {
         /** @var BookmakerRequest $bookmakerRequest */
         $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker($bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker(null, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
         $this->bookmakerGateway->add($bookmaker);
     }
 
@@ -44,7 +40,7 @@ final class BookmakerInteractor implements BookmakerBoundaryInterface
     {
         /** @var BookmakerRequest $bookmakerRequest */
         $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker($bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker($id, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
         $this->bookmakerGateway->update($id, $bookmaker);
     }
 

@@ -2,11 +2,10 @@
 
 namespace Auret\BetProfiler\Entity;
 
-final class Exchange
+final class EventType
 {
     public function __construct(
-        private ?int $id,
-        private ?string $name,
-        private ?string $url
+        private string $name,
+        private string $code
     ) {}
 }

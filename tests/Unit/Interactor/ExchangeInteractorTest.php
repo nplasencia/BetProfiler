@@ -29,7 +29,7 @@ final class ExchangeInteractorTest extends TestCase
      */
     public function testGetOnlyOneExchange(): void
     {
-        $exchange = new Exchange('Exchange Name', 'https://exchange.test.com');
+        $exchange = new Exchange(1, 'Exchange Name', 'https://exchange.test.com');
 
         $this->exchangeGateway->expects($this->once())->method('getAll')
            ->willReturn([$exchange]);
@@ -43,9 +43,9 @@ final class ExchangeInteractorTest extends TestCase
      */
     public function testGetManyExchanges(): void
     {
-        $exchange1 = new Exchange('Exchange Name 1', 'https://exchange1.test.com');
-        $exchange2 = new Exchange('Exchange Name 2', 'https://exchange2.test.com');
-        $exchange3 = new Exchange('Exchange Name 3', 'https://exchange3.test.com');
+        $exchange1 = new Exchange(1, 'Exchange Name 1', 'https://exchange1.test.com');
+        $exchange2 = new Exchange(2, 'Exchange Name 2', 'https://exchange2.test.com');
+        $exchange3 = new Exchange(3, 'Exchange Name 3', 'https://exchange3.test.com');
 
         $this->exchangeGateway->expects($this->once())->method('getAll')
            ->willReturn([$exchange1, $exchange2, $exchange3]);
@@ -65,7 +65,7 @@ final class ExchangeInteractorTest extends TestCase
 
         $exchangeRequest = new ExchangeRequest($exchangeName, $exchangeUrl);
         $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
-        $this->exchangeGateway->expects($this->once())->method('add')->with(new Exchange($exchangeName, $exchangeUrl));
+        $this->exchangeGateway->expects($this->once())->method('add')->with(new Exchange(null, $exchangeName, $exchangeUrl));
 
         $this->exchangeInteractor->add($jsonRequest);
     }
@@ -94,7 +94,7 @@ final class ExchangeInteractorTest extends TestCase
         $exchangeRequest = new ExchangeRequest($newExchangeName, $newExchangeUrl);
         $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
         $this->exchangeGateway->expects($this->once())->method('update')
-           ->with($exchangeId, new Exchange($newExchangeName, $newExchangeUrl));
+           ->with($exchangeId, new Exchange($exchangeId, $newExchangeName, $newExchangeUrl));
 
         $this->exchangeInteractor->updateById($exchangeId, $jsonRequest);
     }
@@ -109,9 +109,9 @@ final class ExchangeInteractorTest extends TestCase
         $exchangeUrl = 'https://new-exchange.test.com';
 
         $this->exchangeGateway->expects($this->once())->method('get')
-           ->willReturn(new Exchange($exchangeName, $exchangeUrl));
+           ->willReturn(new Exchange($exchangeId, $exchangeName, $exchangeUrl));
 
-        $expected = new Exchange($exchangeName, $exchangeUrl);
+        $expected = new Exchange($exchangeId, $exchangeName, $exchangeUrl);
         $this->assertEquals($expected, $this->exchangeInteractor->getById($exchangeId));
     }
 }
