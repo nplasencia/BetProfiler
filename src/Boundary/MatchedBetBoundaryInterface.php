@@ -12,4 +12,6 @@ interface MatchedBetBoundaryInterface
      * @throws JsonException
      */
     public function add(string $jsonRequest): void;
+
+    public function deleteById(int $id): void;
 }

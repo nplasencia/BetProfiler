@@ -99,6 +99,17 @@ final class MatchedBetInteractorTest extends TestCase
         $this->matchedBetInteractor->add($jsonRequest);
     }
 
+    /**
+     * @covers MatchedBetInteractor::deleteById
+     */
+    public function testDeleteById(): void
+    {
+        $matchedBetId = 1;
+
+        $this->matchedBetGateway->expects($this->once())->method('delete')->with($matchedBetId);
+        $this->matchedBetInteractor->deleteById($matchedBetId);
+    }
+
     private function getEncodedJson(
        int $bookmakerId,
        int $exchangeId,
