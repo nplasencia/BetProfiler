@@ -12,7 +12,6 @@ abstract class AbstractBet
         private float $liability,
         private float $return,
         private float $profit,
-        private string $betType,
         private BetResultEnum $result
     ) {}
 }

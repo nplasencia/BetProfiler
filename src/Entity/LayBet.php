@@ -15,10 +15,9 @@ final class LayBet extends AbstractBet
         float $liability,
         float $return,
         float $profit,
-        string $betType,
         BetResultEnum $result
     ) {
         $this->exchange = $exchange;
-        parent::__construct($stake, $odds, $liability, $return, $profit, $betType, $result);
+        parent::__construct($stake, $odds, $liability, $return, $profit, $result);
     }
 }
