@@ -12,13 +12,12 @@ final class BackBet extends AbstractBet
         Bookmaker $bookmaker,
         float $stake,
         float $odds,
-        float $liability,
         float $return,
         float $profit,
         string $betType,
         BetResultEnum $result
     ) {
         $this->bookmaker = $bookmaker;
-        parent::__construct($stake, $odds, $liability, $return, $profit, $betType, $result);
+        parent::__construct($stake, $odds, 0, $return, $profit, $betType, $result);
     }
 }
