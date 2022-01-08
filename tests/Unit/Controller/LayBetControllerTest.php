@@ -4,10 +4,8 @@ namespace Auret\BetProfiler\Tests\Controller;
 
 use Auret\BetProfiler\Common\BetResultEnum;
 use Auret\BetProfiler\Controller\LayBetController;
-use Auret\BetProfiler\Entity\Exchange;
-use Auret\BetProfiler\Entity\LayBet;
 use Auret\BetProfiler\Gateway\LayBetGatewayInterface;
-use Auret\BetProfiler\Model\LayBetRequest;
+use Auret\BetProfiler\Tests\Utils\LayBetUtils;
 use PHPUnit\Framework\TestCase;
 
 final class LayBetControllerTest extends TestCase
@@ -15,8 +13,12 @@ final class LayBetControllerTest extends TestCase
     private LayBetController $layBetController;
     private LayBetGatewayInterface $layBetGateway;
 
+    private LayBetUtils $layBetUtils;
+
     protected function setUp(): void
     {
+        $this->layBetUtils = new LayBetUtils();
+
         $this->layBetGateway = $this->createMock(LayBetGatewayInterface::class);
         $this->layBetController = new LayBetController($this->layBetGateway);
     }
@@ -34,25 +36,11 @@ final class LayBetControllerTest extends TestCase
         $profit = 25.3;
         $betResult = BetResultEnum::LOSE;
 
-        $expectedLayBetToStore = $this->getLayBet($exchangeId, null, $stake, $odds, $liability, $return, $profit, $betResult);
-        $expectedLayBetStored = $this->getLayBet($exchangeId, 1, $stake, $odds, $liability, $return, $profit, $betResult);
+        $expectedLayBetToStore = $this->layBetUtils->getLayBet($exchangeId, null, $stake, $odds, $liability, $return, $profit, $betResult);
+        $expectedLayBetStored = $this->layBetUtils->getLayBet($exchangeId, 1, $stake, $odds, $liability, $return, $profit, $betResult);
         $this->layBetGateway->expects($this->once())->method('add')->with($expectedLayBetToStore)->willReturn($expectedLayBetStored);
 
-        $request = new LayBetRequest($exchangeId, $stake, $odds, $liability, $return, $profit, $betResult);
+        $request = $this->layBetUtils->getLayBetRequest($exchangeId, $stake, $odds, $liability, $return, $profit, $betResult);
         $this->layBetController->add($request);
-    }
-
-    private function getLayBet(
-        int $exchangeId,
-        ?int $backBetId,
-        float $stake,
-        float $odds,
-        float $liability,
-        float $return,
-        float $profit,
-        BetResultEnum $betResult
-    ): LayBet {
-        $exchange = new Exchange($exchangeId, null, null);
-        return new LayBet($exchange, $backBetId, $stake, $odds, $liability, $return, $profit, $betResult);
     }
 }

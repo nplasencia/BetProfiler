@@ -4,10 +4,8 @@ namespace Auret\BetProfiler\Tests\Controller;
 
 use Auret\BetProfiler\Common\BetResultEnum;
 use Auret\BetProfiler\Controller\BackBetController;
-use Auret\BetProfiler\Entity\BackBet;
-use Auret\BetProfiler\Entity\Bookmaker;
 use Auret\BetProfiler\Gateway\BackBetGatewayInterface;
-use Auret\BetProfiler\Model\BackBetRequest;
+use Auret\BetProfiler\Tests\Utils\BackBetUtils;
 use PHPUnit\Framework\TestCase;
 
 final class BackBetControllerTest extends TestCase
@@ -15,8 +13,12 @@ final class BackBetControllerTest extends TestCase
     private BackBetController $backBetController;
     private BackBetGatewayInterface $backBetGateway;
 
+    private BackBetUtils $backBetUtils;
+
     protected function setUp(): void
     {
+        $this->backBetUtils = new BackBetUtils();
+
         $this->backBetGateway = $this->createMock(BackBetGatewayInterface::class);
         $this->backBetController = new BackBetController($this->backBetGateway);
     }
@@ -33,24 +35,11 @@ final class BackBetControllerTest extends TestCase
         $profit = 25.3;
         $betResult = BetResultEnum::WIN;
 
-        $expectedBackBetToStore = $this->getBackBet($bookmakerId, null, $stake, $odds, $return, $profit, $betResult);
-        $expectedBackBetStored = $this->getBackBet($bookmakerId, 1, $stake, $odds, $return, $profit, $betResult);
+        $expectedBackBetToStore = $this->backBetUtils->getBackBet($bookmakerId, null, $stake, $odds, $return, $profit, $betResult);
+        $expectedBackBetStored = $this->backBetUtils->getBackBet($bookmakerId, 1, $stake, $odds, $return, $profit, $betResult);
         $this->backBetGateway->expects($this->once())->method('add')->with($expectedBackBetToStore)->willReturn($expectedBackBetStored);
 
-        $request = new BackBetRequest($bookmakerId, $stake, $odds, $return, $profit, $betResult);
+        $request = $this->backBetUtils->getBackBetRequest($bookmakerId, $stake, $odds, $return, $profit, $betResult);
         $this->backBetController->add($request);
-    }
-
-    private function getBackBet(
-        int $bookmakerId,
-        ?int $backBetId,
-        float $stake,
-        float $odds,
-        float $return,
-        float $profit,
-        BetResultEnum $betResult
-    ): BackBet {
-        $bookmaker = new Bookmaker($bookmakerId, null, null);
-        return new BackBet($bookmaker, $backBetId, $stake, $odds, $return, $profit, $betResult);
     }
 }
