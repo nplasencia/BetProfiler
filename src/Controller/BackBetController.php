@@ -7,7 +7,7 @@ use Auret\BetProfiler\Entity\Bookmaker;
 use Auret\BetProfiler\Gateway\BackBetGatewayInterface;
 use Auret\BetProfiler\Model\BackBetRequest;
 
-final class BackBetController
+class BackBetController
 {
     public function __construct(
         private BackBetGatewayInterface $gateway

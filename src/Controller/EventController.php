@@ -7,7 +7,7 @@ use Auret\BetProfiler\Entity\EventType;
 use Auret\BetProfiler\Gateway\EventGatewayInterface;
 use Auret\BetProfiler\Model\EventRequest;
 
-final class EventController
+class EventController
 {
     public function __construct(
         private EventGatewayInterface $eventGateway

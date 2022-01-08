@@ -7,7 +7,7 @@ use Auret\BetProfiler\Entity\LayBet;
 use Auret\BetProfiler\Gateway\LayBetGatewayInterface;
 use Auret\BetProfiler\Model\LayBetRequest;
 
-final class LayBetController
+class LayBetController
 {
     public function __construct(
         private LayBetGatewayInterface $gateway
