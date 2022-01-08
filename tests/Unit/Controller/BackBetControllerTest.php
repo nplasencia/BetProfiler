@@ -28,16 +28,16 @@ final class BackBetControllerTest extends TestCase
     {
         $bookmakerId = 99;
         $stake = 1.23;
-        $odd = 4.56;
+        $odds = 4.56;
         $return = 35.89;
         $profit = 25.3;
         $betResult = BetResultEnum::WIN;
 
-        $expectedBackBetToStore = $this->getBackBet($bookmakerId, null, $stake, $odd, $return, $profit, $betResult);
-        $expectedBackBetStored = $this->getBackBet($bookmakerId, 1, $stake, $odd, $return, $profit, $betResult);
+        $expectedBackBetToStore = $this->getBackBet($bookmakerId, null, $stake, $odds, $return, $profit, $betResult);
+        $expectedBackBetStored = $this->getBackBet($bookmakerId, 1, $stake, $odds, $return, $profit, $betResult);
         $this->backBetGateway->expects($this->once())->method('add')->with($expectedBackBetToStore)->willReturn($expectedBackBetStored);
 
-        $request = new BackBetRequest($bookmakerId, $stake, $odd, $return, $profit, $betResult);
+        $request = new BackBetRequest($bookmakerId, $stake, $odds, $return, $profit, $betResult);
         $this->backBetController->add($request);
     }
 
@@ -45,11 +45,12 @@ final class BackBetControllerTest extends TestCase
         int $bookmakerId,
         ?int $backBetId,
         float $stake,
-        float $odd,
+        float $odds,
         float $return,
         float $profit,
         BetResultEnum $betResult
     ): BackBet {
-        return new BackBet(new Bookmaker($bookmakerId, null, null), $backBetId, $stake, $odd, $return, $profit, $betResult);
+        $bookmaker = new Bookmaker($bookmakerId, null, null);
+        return new BackBet($bookmaker, $backBetId, $stake, $odds, $return, $profit, $betResult);
     }
 }
