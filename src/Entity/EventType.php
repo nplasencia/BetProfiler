@@ -5,7 +5,8 @@ namespace Auret\BetProfiler\Entity;
 final class EventType
 {
     public function __construct(
-        private string $name,
-        private string $code
+        private ?int $id,
+        private ?string $name,
+        private ?string $code
     ) {}
 }
