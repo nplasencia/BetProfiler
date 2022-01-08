@@ -2,31 +2,40 @@
 
 namespace Auret\BetProfiler\Model;
 
+use Auret\BetProfiler\Common\MatchedBetModeEnum;
+use Auret\BetProfiler\Common\MatchedBetTypeEnum;
+
 final class MatchedBetRequest implements RequestInterface
 {
     public function __construct(
-        private int $bookmakerId,
-        private int $exchangeId,
-        private int $eventId,
+        private BackBetRequest $backBetRequest,
+        private LayBetRequest $layBetRequest,
+        private EventRequest $eventRequest,
+        private string $bet,
         private int $marketTypeId,
         private string $betType,
         private string $betMode,
         private string $notes,
     ) {}
 
-    public function getBookmakerId(): int
+    public function getBackBetRequest(): BackBetRequest
     {
-        return $this->bookmakerId;
+        return $this->backBetRequest;
     }
 
-    public function getExchangeId(): int
+    public function getLayBetRequest(): LayBetRequest
     {
-        return $this->exchangeId;
+        return $this->layBetRequest;
     }
 
-    public function getEventId(): int
+    public function getEventRequest(): EventRequest
     {
-        return $this->eventId;
+        return $this->eventRequest;
+    }
+
+    public function getBet(): string
+    {
+        return $this->bet;
     }
 
     public function getMarketTypeId(): int
@@ -34,14 +43,14 @@ final class MatchedBetRequest implements RequestInterface
         return $this->marketTypeId;
     }
 
-    public function getBetType(): string
+    public function getBetType(): MatchedBetTypeEnum
     {
-        return $this->betType;
+        return MatchedBetTypeEnum::from($this->betType);
     }
 
-    public function getBetMode(): string
+    public function getBetMode(): MatchedBetModeEnum
     {
-        return $this->betMode;
+        return MatchedBetModeEnum::from($this->betMode);
     }
 
     public function getNotes(): string
