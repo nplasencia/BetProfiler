@@ -22,8 +22,8 @@ class BackBetController
     private function getBackBetFromRequest(BackBetRequest $request): BackBet
     {
         return new BackBet(
-            new Bookmaker($request->getBookmakerId(), null, null),
             null,
+            new Bookmaker($request->getBookmakerId(), null, null),
             $request->getStake(),
             $request->getOdds(),
             $request->getReturn(),

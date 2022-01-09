@@ -10,8 +10,8 @@ use Auret\BetProfiler\Model\BackBetRequest;
 final class BackBetUtils
 {
     public function getBackBet(
-        int $bookmakerId,
         ?int $backBetId,
+        int $bookmakerId,
         float $stake,
         float $odds,
         float $return,
@@ -19,7 +19,7 @@ final class BackBetUtils
         BetResultEnum $betResult
     ): BackBet {
         $bookmaker = new Bookmaker($bookmakerId, null, null);
-        return new BackBet($bookmaker, $backBetId, $stake, $odds, $return, $profit, $betResult);
+        return new BackBet($backBetId, $bookmaker, $stake, $odds, $return, $profit, $betResult);
     }
 
     public function getBackBetRequest(

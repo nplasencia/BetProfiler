@@ -35,8 +35,8 @@ final class BackBetControllerTest extends TestCase
         $profit = 25.3;
         $betResult = BetResultEnum::WIN;
 
-        $expectedBackBetToStore = $this->backBetUtils->getBackBet($bookmakerId, null, $stake, $odds, $return, $profit, $betResult);
-        $expectedBackBetStored = $this->backBetUtils->getBackBet($bookmakerId, 1, $stake, $odds, $return, $profit, $betResult);
+        $expectedBackBetToStore = $this->backBetUtils->getBackBet(null, $bookmakerId, $stake, $odds, $return, $profit, $betResult);
+        $expectedBackBetStored = $this->backBetUtils->getBackBet(1, $bookmakerId, $stake, $odds, $return, $profit, $betResult);
         $this->backBetGateway->expects($this->once())->method('add')->with($expectedBackBetToStore)->willReturn($expectedBackBetStored);
 
         $request = $this->backBetUtils->getBackBetRequest($bookmakerId, $stake, $odds, $return, $profit, $betResult);
