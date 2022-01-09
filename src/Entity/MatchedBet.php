@@ -8,6 +8,7 @@ use Auret\BetProfiler\Common\MatchedBetTypeEnum;
 final class MatchedBet
 {
     public function __construct(
+        private ?int $id,
         private BackBet $backBet,
         private LayBet $layBet,
         private Event $event,

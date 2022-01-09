@@ -96,7 +96,7 @@ final class MatchedBetInteractorTest extends TestCase
         $storedEvent = $this->eventUtils->getEvent($storedEventId, $eventName, $eventDateTime, $eventTypeId);
         $this->eventController->expects($this->once())->method('add')->with($eventRequest)->willReturn($storedEvent);
 
-        $this->matchedBetGateway->expects($this->once())->method('add')->with($this->getExpectedMatchedBet($storedBackBet, $storedLayBet, $storedEvent, $bet, $marketTypeId, $betType, $betMode, $notes));
+        $this->matchedBetGateway->expects($this->once())->method('add')->with($this->getExpectedMatchedBet(null, $storedBackBet, $storedLayBet, $storedEvent, $bet, $marketTypeId, $betType, $betMode, $notes));
 
         $matchedBetRequest = new MatchedBetRequest($backBetRequest, $layBetRequest, $eventRequest, $bet, $marketTypeId, $betType, $betMode, $notes);
         $this->matchedBetInteractor->add($matchedBetRequest);
@@ -197,19 +197,21 @@ final class MatchedBetInteractorTest extends TestCase
     }
 
     private function getExpectedMatchedBet(
-       BackBet $backBet,
-       LayBet $layBet,
-       Event $event,
-       string $bet,
-       int $marketTypeId,
-       string $betType,
-       string $betMode,
-       string $notes
+        ?int $id,
+        BackBet $backBet,
+        LayBet $layBet,
+        Event $event,
+        string $bet,
+        int $marketTypeId,
+        string $betType,
+        string $betMode,
+        string $notes
     ): MatchedBet
     {
         $marketType = new MarketType($marketTypeId, null, null);
-        return new MatchedBet(
-            $backBet, $layBet, $event, $bet, $marketType, MatchedBetTypeEnum::from($betType), MatchedBetModeEnum::from($betMode), $notes
-        );
+        $betTypeEnum = MatchedBetTypeEnum::from($betType);
+        $betModeEnum = MatchedBetModeEnum::from($betMode);
+
+        return new MatchedBet($id, $backBet, $layBet, $event, $bet, $marketType, $betTypeEnum, $betModeEnum, $notes);
     }
 }

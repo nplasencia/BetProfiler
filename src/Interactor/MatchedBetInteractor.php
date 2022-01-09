@@ -83,6 +83,7 @@ final class MatchedBetInteractor implements MatchedBetBoundaryInterface
         Event $event
     ): MatchedBet {
         return new MatchedBet(
+            null,
             $backBet,
             $layBet,
             $event,
