@@ -6,23 +6,16 @@ use Auret\BetProfiler\Boundary\ExchangeBoundaryInterface;
 use Auret\BetProfiler\Entity\Exchange;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
 use Auret\BetProfiler\Model\ExchangeRequest;
-use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class ExchangeInteractor implements ExchangeBoundaryInterface
 {
     public function __construct(
         private ExchangeGatewayInterface $exchangeGateway,
-        private RequestFactoryInterface $requestFactory
     ) {}
 
-    /**
-     * @inheritDoc
-     */
-    public function add(string $jsonRequest): void
+    public function add(ExchangeRequest $request): void
     {
-        /** @var ExchangeRequest $exchangeRequest */
-        $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange(null, $exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange(null, $request->getName(), $request->getUrl());
         $this->exchangeGateway->add($exchange);
     }
 
@@ -31,14 +24,9 @@ final class ExchangeInteractor implements ExchangeBoundaryInterface
         $this->exchangeGateway->delete($id);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function updateById(int $id, string $jsonRequest): void
+    public function updateById(int $id, ExchangeRequest $request): void
     {
-        /** @var ExchangeRequest $exchangeRequest */
-        $exchangeRequest = $this->requestFactory->create($jsonRequest);
-        $exchange = new Exchange($id, $exchangeRequest->getName(), $exchangeRequest->getUrl());
+        $exchange = new Exchange($id, $request->getName(), $request->getUrl());
         $this->exchangeGateway->update($id, $exchange);
     }
 
