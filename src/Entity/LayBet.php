@@ -6,19 +6,16 @@ use Auret\BetProfiler\Common\BetResultEnum;
 
 final class LayBet extends AbstractBet
 {
-    private Exchange $exchange;
-
     public function __construct(
-        Exchange $exchange,
-        float $stake,
-        float $odds,
-        float $liability,
-        float $return,
-        float $profit,
-        string $betType,
-        BetResultEnum $result
+        protected ?int $id,
+        private Exchange $exchange,
+        protected float $stake,
+        protected float $odds,
+        protected float $liability,
+        protected float $return,
+        protected float $profit,
+        protected BetResultEnum $result
     ) {
-        $this->exchange = $exchange;
-        parent::__construct($stake, $odds, $liability, $return, $profit, $betType, $result);
+        parent::__construct($id, $stake, $odds, $liability, $return, $profit, $result);
     }
 }

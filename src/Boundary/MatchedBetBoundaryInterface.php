@@ -2,16 +2,11 @@
 
 namespace Auret\BetProfiler\Boundary;
 
-use JsonException;
+use Auret\BetProfiler\Model\MatchedBetRequest;
 
 interface MatchedBetBoundaryInterface
 {
-    /**
-     * @param string $jsonRequest
-     * @return void
-     * @throws JsonException
-     */
-    public function add(string $jsonRequest): void;
+    public function add(MatchedBetRequest $request): void;
 
     public function deleteById(int $id): void;
 }

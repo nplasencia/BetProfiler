@@ -3,26 +3,15 @@
 namespace Auret\BetProfiler\Boundary;
 
 use Auret\BetProfiler\Entity\Bookmaker;
-use JsonException;
+use Auret\BetProfiler\Model\BookmakerRequest;
 
 interface BookmakerBoundaryInterface
 {
-    /**
-     * @param string $jsonRequest
-     * @return void
-     * @throws JsonException
-     */
-    public function add(string $jsonRequest): void;
+    public function add(BookmakerRequest $request): void;
 
     public function deleteById(int $id): void;
 
-    /**
-     * @param int $id
-     * @param string $jsonRequest
-     * @return void
-     * @throws JsonException
-     */
-    public function updateById(int $id, string $jsonRequest): void;
+    public function updateById(int $id, BookmakerRequest $request): void;
 
     /**
      * @return Bookmaker[]

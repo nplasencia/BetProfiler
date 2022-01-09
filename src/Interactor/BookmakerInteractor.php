@@ -2,29 +2,20 @@
 
 namespace Auret\BetProfiler\Interactor;
 
-
-
 use Auret\BetProfiler\Boundary\BookmakerBoundaryInterface;
 use Auret\BetProfiler\Entity\Bookmaker;
 use Auret\BetProfiler\Gateway\BookmakerGatewayInterface;
 use Auret\BetProfiler\Model\BookmakerRequest;
-use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 
 final class BookmakerInteractor implements BookmakerBoundaryInterface
 {
     public function __construct(
-        private BookmakerGatewayInterface $bookmakerGateway,
-        private RequestFactoryInterface $requestFactory
+        private BookmakerGatewayInterface $bookmakerGateway
     ) {}
 
-    /**
-     * @inheritDoc
-     */
-    public function add(string $jsonRequest): void
+    public function add(BookmakerRequest $request): void
     {
-        /** @var BookmakerRequest $bookmakerRequest */
-        $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker(null, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker(null, $request->getName(), $request->getUrl());
         $this->bookmakerGateway->add($bookmaker);
     }
 
@@ -33,14 +24,9 @@ final class BookmakerInteractor implements BookmakerBoundaryInterface
         $this->bookmakerGateway->delete($id);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function updateById(int $id, string $jsonRequest): void
+    public function updateById(int $id, BookmakerRequest $request): void
     {
-        /** @var BookmakerRequest $bookmakerRequest */
-        $bookmakerRequest = $this->requestFactory->create($jsonRequest);
-        $bookmaker = new Bookmaker($id, $bookmakerRequest->getName(), $bookmakerRequest->getUrl());
+        $bookmaker = new Bookmaker($id, $request->getName(), $request->getUrl());
         $this->bookmakerGateway->update($id, $bookmaker);
     }
 

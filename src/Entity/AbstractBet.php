@@ -6,13 +6,18 @@ use Auret\BetProfiler\Common\BetResultEnum;
 
 abstract class AbstractBet
 {
-    public function __construct(
-        private float $stake,
-        private float $odds,
-        private float $liability,
-        private float $return,
-        private float $profit,
-        private string $betType,
-        private BetResultEnum $result
+    protected function __construct(
+        protected ?int $id,
+        protected float $stake,
+        protected float $odds,
+        protected float $liability,
+        protected float $return,
+        protected float $profit,
+        protected BetResultEnum $result
     ) {}
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

@@ -3,26 +3,15 @@
 namespace Auret\BetProfiler\Boundary;
 
 use Auret\BetProfiler\Entity\Exchange;
-use JsonException;
+use Auret\BetProfiler\Model\ExchangeRequest;
 
 interface ExchangeBoundaryInterface
 {
-    /**
-     * @param string $jsonRequest
-     * @return void
-     * @throws JsonException
-     */
-    public function add(string $jsonRequest): void;
+    public function add(ExchangeRequest $request): void;
 
     public function deleteById(int $id): void;
 
-    /**
-     * @param int $id
-     * @param string $jsonRequest
-     * @return void
-     * @throws JsonException
-     */
-    public function updateById(int $id, string $jsonRequest): void;
+    public function updateById(int $id, ExchangeRequest $request): void;
 
     /**
      * @return Exchange[]

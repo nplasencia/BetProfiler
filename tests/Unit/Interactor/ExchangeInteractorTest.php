@@ -6,22 +6,17 @@ use Auret\BetProfiler\Entity\Exchange;
 use Auret\BetProfiler\Gateway\ExchangeGatewayInterface;
 use Auret\BetProfiler\Interactor\ExchangeInteractor;
 use Auret\BetProfiler\Model\ExchangeRequest;
-use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ExchangeInteractorTest extends TestCase
 {
     private ExchangeInteractor $exchangeInteractor;
-
     private ExchangeGatewayInterface $exchangeGateway;
-    private RequestFactoryInterface $requestFactory;
 
     protected function setUp(): void
     {
         $this->exchangeGateway = $this->createMock(ExchangeGatewayInterface::class);
-        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
-
-        $this->exchangeInteractor = new ExchangeInteractor($this->exchangeGateway, $this->requestFactory);
+        $this->exchangeInteractor = new ExchangeInteractor($this->exchangeGateway);
     }
 
     /**
@@ -61,13 +56,11 @@ final class ExchangeInteractorTest extends TestCase
     {
         $exchangeName = 'Exchange Name';
         $exchangeUrl = 'https://exchange.test.com';
-        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $exchangeName, $exchangeUrl);
 
-        $exchangeRequest = new ExchangeRequest($exchangeName, $exchangeUrl);
-        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
         $this->exchangeGateway->expects($this->once())->method('add')->with(new Exchange(null, $exchangeName, $exchangeUrl));
 
-        $this->exchangeInteractor->add($jsonRequest);
+        $exchangeRequest = new ExchangeRequest($exchangeName, $exchangeUrl);
+        $this->exchangeInteractor->add($exchangeRequest);
     }
 
     /**
@@ -89,14 +82,12 @@ final class ExchangeInteractorTest extends TestCase
         $exchangeId = 99;
         $newExchangeName = 'New Exchange Name';
         $newExchangeUrl = 'https://new-exchange.test.com';
-        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $newExchangeName, $newExchangeUrl);
 
-        $exchangeRequest = new ExchangeRequest($newExchangeName, $newExchangeUrl);
-        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($exchangeRequest);
         $this->exchangeGateway->expects($this->once())->method('update')
            ->with($exchangeId, new Exchange($exchangeId, $newExchangeName, $newExchangeUrl));
 
-        $this->exchangeInteractor->updateById($exchangeId, $jsonRequest);
+        $exchangeRequest = new ExchangeRequest($newExchangeName, $newExchangeUrl);
+        $this->exchangeInteractor->updateById($exchangeId, $exchangeRequest);
     }
 
     /**

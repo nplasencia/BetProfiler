@@ -6,19 +6,15 @@ use Auret\BetProfiler\Common\BetResultEnum;
 
 final class BackBet extends AbstractBet
 {
-    private Bookmaker $bookmaker;
-
     public function __construct(
-        Bookmaker $bookmaker,
-        float $stake,
-        float $odds,
-        float $liability,
-        float $return,
-        float $profit,
-        string $betType,
-        BetResultEnum $result
+        protected ?int $id,
+        private Bookmaker $bookmaker,
+        protected float $stake,
+        protected float $odds,
+        protected float $return,
+        protected float $profit,
+        protected BetResultEnum $result
     ) {
-        $this->bookmaker = $bookmaker;
-        parent::__construct($stake, $odds, $liability, $return, $profit, $betType, $result);
+        parent::__construct($id, $stake, $odds, 0, $return, $profit, $result);
     }
 }

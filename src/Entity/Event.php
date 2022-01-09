@@ -8,8 +8,8 @@ final class Event
 {
     public function __construct(
         private ?int $id,
-        private ?string $eventName,
-        private ?DateTime $eventDateTime,
-        private ?EventType $eventType
+        private ?string $name,
+        private ?DateTime $dateTime,
+        private ?EventType $type
     ) {}
 }
