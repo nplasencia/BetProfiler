@@ -36,8 +36,8 @@ final class LayBetControllerTest extends TestCase
         $profit = 25.3;
         $betResult = BetResultEnum::LOSE;
 
-        $expectedLayBetToStore = $this->layBetUtils->getLayBet($exchangeId, null, $stake, $odds, $liability, $return, $profit, $betResult);
-        $expectedLayBetStored = $this->layBetUtils->getLayBet($exchangeId, 1, $stake, $odds, $liability, $return, $profit, $betResult);
+        $expectedLayBetToStore = $this->layBetUtils->getLayBet(null, $exchangeId, $stake, $odds, $liability, $return, $profit, $betResult);
+        $expectedLayBetStored = $this->layBetUtils->getLayBet(1, $exchangeId, $stake, $odds, $liability, $return, $profit, $betResult);
         $this->layBetGateway->expects($this->once())->method('add')->with($expectedLayBetToStore)->willReturn($expectedLayBetStored);
 
         $request = $this->layBetUtils->getLayBetRequest($exchangeId, $stake, $odds, $liability, $return, $profit, $betResult);

@@ -7,8 +7,8 @@ use Auret\BetProfiler\Common\BetResultEnum;
 final class LayBet extends AbstractBet
 {
     public function __construct(
-        private Exchange $exchange,
         protected ?int $id,
+        private Exchange $exchange,
         protected float $stake,
         protected float $odds,
         protected float $liability,

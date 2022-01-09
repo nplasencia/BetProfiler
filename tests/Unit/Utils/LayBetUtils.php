@@ -10,8 +10,8 @@ use Auret\BetProfiler\Model\LayBetRequest;
 final class LayBetUtils
 {
     public function getLayBet(
-        int $exchangeId,
         ?int $backBetId,
+        int $exchangeId,
         float $stake,
         float $odds,
         float $liability,
@@ -20,7 +20,7 @@ final class LayBetUtils
         BetResultEnum $betResult
     ): LayBet {
         $exchange = new Exchange($exchangeId, null, null);
-        return new LayBet($exchange, $backBetId, $stake, $odds, $liability, $return, $profit, $betResult);
+        return new LayBet($backBetId, $exchange, $stake, $odds, $liability, $return, $profit, $betResult);
     }
 
     public function getLayBetRequest(

@@ -22,8 +22,8 @@ class LayBetController
     private function getLayBetFromRequest(LayBetRequest $request): LayBet
     {
         return new LayBet(
-            new Exchange($request->getExchangeId(), null, null),
             null,
+            new Exchange($request->getExchangeId(), null, null),
             $request->getStake(),
             $request->getOdds(),
             $request->getLiability(),
