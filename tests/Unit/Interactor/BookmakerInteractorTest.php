@@ -6,22 +6,17 @@ use Auret\BetProfiler\Entity\Bookmaker;
 use Auret\BetProfiler\Gateway\BookmakerGatewayInterface;
 use Auret\BetProfiler\Interactor\BookmakerInteractor;
 use Auret\BetProfiler\Model\BookmakerRequest;
-use Auret\BetProfiler\Model\Factory\RequestFactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 final class BookmakerInteractorTest extends TestCase
 {
     private BookmakerInteractor $bookmakerInteractor;
-
     private BookmakerGatewayInterface $bookmakerGateway;
-    private RequestFactoryInterface $requestFactory;
 
     protected function setUp(): void
     {
         $this->bookmakerGateway = $this->createMock(BookmakerGatewayInterface::class);
-        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
-
-        $this->bookmakerInteractor = new BookmakerInteractor($this->bookmakerGateway, $this->requestFactory);
+        $this->bookmakerInteractor = new BookmakerInteractor($this->bookmakerGateway);
     }
 
     /**
@@ -61,13 +56,11 @@ final class BookmakerInteractorTest extends TestCase
     {
         $bookmakerName = 'Bookmaker Name';
         $bookmakerUrl = 'https://Bookmaker.test.com';
-        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $bookmakerName, $bookmakerUrl);
 
-        $BookmakerRequest = new BookmakerRequest($bookmakerName, $bookmakerUrl);
-        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($BookmakerRequest);
         $this->bookmakerGateway->expects($this->once())->method('add')->with(new Bookmaker(null, $bookmakerName, $bookmakerUrl));
 
-        $this->bookmakerInteractor->add($jsonRequest);
+        $bookmakerRequest = new BookmakerRequest($bookmakerName, $bookmakerUrl);
+        $this->bookmakerInteractor->add($bookmakerRequest);
     }
 
     /**
@@ -89,14 +82,12 @@ final class BookmakerInteractorTest extends TestCase
         $bookmakerId = 99;
         $newBookmakerName = 'New Bookmaker Name';
         $newBookmakerUrl = 'https://new-Bookmaker.test.com';
-        $jsonRequest = sprintf('{"name":"%s", "url":"%s"}', $newBookmakerName, $newBookmakerUrl);
 
-        $bookmakerRequest = new BookmakerRequest($newBookmakerName, $newBookmakerUrl);
-        $this->requestFactory->expects($this->once())->method('create')->with($jsonRequest)->willReturn($bookmakerRequest);
         $this->bookmakerGateway->expects($this->once())->method('update')
            ->with($bookmakerId, new Bookmaker($bookmakerId, $newBookmakerName, $newBookmakerUrl));
 
-        $this->bookmakerInteractor->updateById($bookmakerId, $jsonRequest);
+        $bookmakerRequest = new BookmakerRequest($newBookmakerName, $newBookmakerUrl);
+        $this->bookmakerInteractor->updateById($bookmakerId, $bookmakerRequest);
     }
 
     /**
