@@ -9,4 +9,19 @@ final class Exchange
         private ?string $name,
         private ?string $url
     ) {}
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
 }
