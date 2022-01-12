@@ -14,7 +14,5 @@ final class BackBet extends AbstractBet
         protected float $return,
         protected float $profit,
         protected BetResultEnum $result
-    ) {
-        parent::__construct($id, $stake, $odds, 0, $return, $profit, $result);
-    }
+    ) {}
 }

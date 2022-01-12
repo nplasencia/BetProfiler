@@ -15,7 +15,5 @@ final class LayBet extends AbstractBet
         protected float $return,
         protected float $profit,
         protected BetResultEnum $result
-    ) {
-        parent::__construct($id, $stake, $odds, $liability, $return, $profit, $result);
-    }
+    ) {}
 }
