@@ -6,14 +6,12 @@ use Auret\BetProfiler\Common\BetResultEnum;
 
 abstract class AbstractBetRequest implements RequestInterface
 {
-    public function __construct(
-        protected float $stake,
-        protected float $odds,
-        protected float $liability,
-        protected float $return,
-        protected float $profit,
-        protected BetResultEnum $result,
-    ) {}
+    protected float $stake;
+    protected float $odds;
+    protected float $liability;
+    protected float $return;
+    protected float $profit;
+    protected BetResultEnum $result;
 
     public function getStake(): float
     {

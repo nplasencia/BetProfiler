@@ -14,9 +14,7 @@ final class LayBetRequest extends AbstractBetRequest
         protected float $return,
         protected float $profit,
         protected BetResultEnum $result,
-    ) {
-        parent::__construct($stake, $odds, $liability, $return, $profit, $result);
-    }
+    ) {}
 
     public function getExchangeId(): int
     {

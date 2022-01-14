@@ -15,7 +15,6 @@ use Auret\BetProfiler\Entity\MatchedBet;
 use Auret\BetProfiler\Exception\MatchedBetRequestValidationException;
 use Auret\BetProfiler\Gateway\MatchedBetGatewayInterface;
 use Auret\BetProfiler\Model\MatchedBetRequest;
-use http\Exception\RuntimeException;
 use ValueError;
 
 final class MatchedBetInteractor implements MatchedBetBoundaryInterface

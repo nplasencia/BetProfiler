@@ -13,9 +13,7 @@ final class BackBetRequest extends AbstractBetRequest
         protected float $return,
         protected float $profit,
         protected BetResultEnum $result,
-    ) {
-        parent::__construct($stake, $odds, 0, $return, $profit, $result);
-    }
+    ) {}
 
     public function getBookmakerId(): int
     {
