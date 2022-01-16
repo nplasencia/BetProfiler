@@ -24,12 +24,12 @@ final class BookmakerInteractorTest extends TestCase
      */
     public function testGetOnlyOneBookmaker(): void
     {
-        $Bookmaker = new Bookmaker(1, 'Bookmaker Name', 'https://Bookmaker.test.com');
+        $bookmaker = new Bookmaker(1, 'Bookmaker Name', 'https://Bookmaker.test.com');
 
         $this->bookmakerGateway->expects($this->once())->method('getAll')
-           ->willReturn([$Bookmaker]);
+           ->willReturn([$bookmaker]);
 
-        $expected = [$Bookmaker];
+        $expected = [$bookmaker];
         $this->assertEquals($expected, $this->bookmakerInteractor->getAll());
     }
 
