@@ -12,4 +12,24 @@ final class Event
         private ?DateTime $dateTime,
         private ?EventType $type
     ) {}
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getDateTime(): ?DateTime
+    {
+        return $this->dateTime;
+    }
+
+    public function getType(): ?EventType
+    {
+        return $this->type;
+    }
 }

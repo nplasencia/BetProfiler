@@ -18,4 +18,49 @@ final class MatchedBet
         private MatchedBetModeEnum $mode,
         private string $notes
     ) {}
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getBackBet(): BackBet
+    {
+        return $this->backBet;
+    }
+
+    public function getLayBet(): LayBet
+    {
+        return $this->layBet;
+    }
+
+    public function getEvent(): Event
+    {
+        return $this->event;
+    }
+
+    public function getBet(): string
+    {
+        return $this->bet;
+    }
+
+    public function getMarketType(): MarketType
+    {
+        return $this->marketType;
+    }
+
+    public function getType(): MatchedBetTypeEnum
+    {
+        return $this->type;
+    }
+
+    public function getMode(): MatchedBetModeEnum
+    {
+        return $this->mode;
+    }
+
+    public function getNotes(): string
+    {
+        return $this->notes;
+    }
 }

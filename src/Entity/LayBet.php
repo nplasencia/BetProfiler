@@ -16,4 +16,9 @@ final class LayBet extends AbstractBet
         protected float $profit,
         protected BetResultEnum $result
     ) {}
+
+    public function getExchange(): Exchange
+    {
+        return $this->exchange;
+    }
 }

@@ -15,4 +15,9 @@ final class BackBet extends AbstractBet
         protected float $profit,
         protected BetResultEnum $result
     ) {}
+
+    public function getBookmaker(): Bookmaker
+    {
+        return $this->bookmaker;
+    }
 }
