@@ -14,7 +14,7 @@ abstract class AbstractBet
     protected float $profit;
     protected BetResultEnum $result;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
